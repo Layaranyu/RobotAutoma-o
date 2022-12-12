@@ -6,11 +6,16 @@ ${URL}                         https://www.amazon.com.br/ref=nav_logo
 ${MENU_ELETRONICOS}            //a[@href='/Eletronicos-e-Tecnologia/b/?ie=UTF8&node=16209062011&ref_=nav_cs_electronics'][contains(.,'Eletrônicos')]
 ${TEXTO_HEADER_ELETRONICOS}    Eletrônicos e Tecnologia
 ${HEADER_ELETRONICOS}          //h1[contains(.,'Eletrônicos e Tecnologia')]
+${TEXTO_PESQUISAR}             //input[contains(@type,'text')]
+${PESQUISAR}                   //input[contains(@type,'submit')]
+${RESPOSTA_PESQUISA}           //span[@class='a-color-state a-text-bold'][contains(.,'"xbox series s"')]
+
 ***Keywords***
 Abrir o navegador
     Open Browser    browser=chrome    
     Maximize Browser Window    
 Fechar o navegador
+    Capture Page Screenshot 	 
     Close Browser  
 
 Acessar o home page do site da Amazon.com.br
@@ -29,3 +34,14 @@ Verificar se o titulo da página fica "${TITULO}"
 
 Verificar se aparece a categoria "${NOME_CATEGORIA}"
     Element Should Be Visible 	 locator=//a[@aria-label='${NOME_CATEGORIA}']
+
+Digitar o nome do produto "xbox series S" no campo de Pesquisa
+    Input Text  locator=${TEXTO_PESQUISAR}  text=xbox series s
+
+Clicar no botão de pesquisa
+    Click Element  locator=${PESQUISAR}
+
+Verificar o resultado da pesquisa se esta listando o produto pesquisado
+    Wait Until Element Is Visible  locator=${RESPOSTA_PESQUISA}
+    Wait Until Page Contains  text=xbox series s
+
