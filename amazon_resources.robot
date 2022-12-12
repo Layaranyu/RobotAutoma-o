@@ -9,7 +9,8 @@ ${HEADER_ELETRONICOS}          //h1[contains(.,'Eletrônicos e Tecnologia')]
 ${TEXTO_PESQUISAR}             //input[contains(@type,'text')]
 ${PESQUISAR}                   //input[contains(@type,'submit')]
 ${RESPOSTA_PESQUISA}           //span[@class='a-color-state a-text-bold'][contains(.,'"xbox series s"')]
-
+${ADICIONAR_CARRINHO}          //input[contains(@name,'submit.add-to-cart')]
+${ADICIONADO}                  //span[@class='a-size-medium-plus a-color-base sw-atc-text a-text-bold'][contains(.,'Adicionado ao carrinho')]
 ***Keywords***
 Abrir o navegador
     Open Browser    browser=chrome    
@@ -45,3 +46,10 @@ Verificar o resultado da pesquisa se esta listando o produto pesquisado
     Wait Until Element Is Visible  locator=${RESPOSTA_PESQUISA}
     Wait Until Page Contains  text=xbox series s
 
+Adicionar o produto "${PRODUTO}" no carrinho
+    Click Element 	locator=//span[@class='a-size-base-plus a-color-base a-text-normal'][contains(.,'${PRODUTO}')]
+    Click Element  locator=${ADICIONAR_CARRINHO}
+
+Verificar se o produto "Console Xbox Series S" foi adicionado com sucesso
+    Wait Until Element Is Visible 	 locator=${ADICIONADO} 
+    
